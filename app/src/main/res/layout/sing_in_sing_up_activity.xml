@@ -44,14 +44,14 @@
         android:layout_above="@id/signUpButton"/>
 
     <Button
-        android:id="@+id/connectionButton"
+        android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_button_margin"
         android:layout_marginLeft="@dimen/activity_button_margin"
         android:layout_marginEnd="@dimen/activity_button_margin"
         android:layout_marginRight="@dimen/activity_button_margin"
-        android:text="@string/connection"
+        android:text="@string/singIn"
         android:textColor="@color/White"
         android:layout_above="@id/forgottenPassword"
         android:background="@color/colorPrimary"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:layout_above="@+id/connectionButton"
+        android:layout_above="@+id/signInButton"
         android:layout_centerHorizontal="true"
         android:hint="@string/password"
         android:layout_marginBottom="@dimen/activity_button_margin"

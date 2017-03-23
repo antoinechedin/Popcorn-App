@@ -2,7 +2,7 @@
     <string name="app_name">Popcorn</string>
     <string name="signUp">Sign up</string>
     <string name="password_forgotten">Password forgotten?</string>
-    <string name="connection">Connection</string>
+    <string name="singIn">Sign In</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
 </resources>
