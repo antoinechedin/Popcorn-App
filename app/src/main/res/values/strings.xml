@@ -5,4 +5,6 @@
     <string name="singIn">Sign In</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="recommendations">Recommandations</string>
+    <string name="popular">Populaire</string>
 </resources>
