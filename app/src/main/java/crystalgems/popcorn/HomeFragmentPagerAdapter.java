@@ -10,8 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Tab1", "Tab2", "Tab3" };
+    private final int PAGE_COUNT = 2;
+    private String tabTitles[] = new String[] { "Recommandé", "Populaire"};
     private Context context;
 
     public HomeFragmentPagerAdapter(FragmentManager fm, Context context) {
