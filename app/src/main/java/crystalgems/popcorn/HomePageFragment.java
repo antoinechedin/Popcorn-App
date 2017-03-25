@@ -1,7 +1,7 @@
 package crystalgems.popcorn;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +10,16 @@ import android.widget.TextView;
 /**
  * Created by Alex on 25/03/2017.
  */
-public class PageFragment extends Fragment {
+
+public class HomePageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
 
-    public static PageFragment newInstance(int page) {
+    public static HomePageFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
-        PageFragment fragment = new PageFragment();
+        HomePageFragment fragment = new HomePageFragment();
         fragment.setArguments(args);
         return fragment;
     }
