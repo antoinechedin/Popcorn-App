@@ -52,7 +52,7 @@
         android:layout_marginEnd="@dimen/activity_button_margin"
         android:layout_marginRight="@dimen/activity_button_margin"
         android:text="@string/singIn"
-        android:textColor="@color/White"
+        android:textColor="@android:color/white"
         android:layout_above="@id/forgottenPassword"
         android:background="@color/colorPrimary"
         android:layout_centerHorizontal="true"/>

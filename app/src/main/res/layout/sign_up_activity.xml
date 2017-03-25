@@ -80,6 +80,6 @@
         android:layout_marginRight="14dp"
         android:background="@color/colorPrimary"
         android:text="Inscription"
-        android:textColor="@color/White" />
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
