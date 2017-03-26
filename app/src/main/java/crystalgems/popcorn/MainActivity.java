@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        homeRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        /*homeRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // Improve performance if we know components will have fixed size, which is the case
         homeRecyclerView.setHasFixedSize(true);
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         rvAdapter = new CustomAdapter(customDataset); //TODO
-        homeRecyclerView.setAdapter(rvAdapter);
+        homeRecyclerView.setAdapter(rvAdapter);*/
     }
 
     @Override
