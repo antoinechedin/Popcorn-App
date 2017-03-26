@@ -5,4 +5,6 @@
     <color name="colorBackgroundDark">#2F0001</color>
     <color name="colorAccent">#FFFE9F</color>
     <color name="unselectedGray">#bcbcbc</color>
+    <color name="darkBlue">#3f51b5</color>
+    <color name="lightBlue">#7986cb</color>
 </resources>
