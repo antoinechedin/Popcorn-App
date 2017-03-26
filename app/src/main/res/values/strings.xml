@@ -7,4 +7,9 @@
     <string name="email">Email</string>
     <string name="recommendations">Recommandations</string>
     <string name="popular">Populaire</string>
+    <string name="release_date">Date de sortie :</string>
+    <string name="director">Réalisateur :</string>
+    <string name="actors">Acteurs :</string>
+    <string name="categories">Genres :</string>
+    <string name="nationality">Nationalité :</string>
 </resources>

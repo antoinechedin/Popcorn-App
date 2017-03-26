@@ -1,5 +1,7 @@
 package crystalgems.popcorn;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +17,21 @@ import android.widget.TextView;
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
     private String[] dataset;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public View view;
+        private final Context context;
 
-        public ViewHolder(View vhView) {
+        public ViewHolder(final View vhView) {
             super(vhView);
             view = vhView;
+
+            context = view.getContext();
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, MovieDetailsActivity.class);
+            context.startActivity(intent);
         }
     }
 
@@ -57,5 +68,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public int getItemCount() {
         return dataset.length;
     }
+
+
 
 }
