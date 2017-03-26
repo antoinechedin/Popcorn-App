@@ -63,7 +63,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         moviePicture.setImageResource(R.drawable.la_la_land);
 
         // Movie title
-        TextView movieTitle = (TextView) holder.view.findViewById(R.id.movie_title);
+        TextView movieTitle = (TextView) holder.view.findViewById(R.id.movieTitle);
         movieTitle.setText(dataset[position]);
     }
 
