@@ -23,7 +23,7 @@
             tools:src="@drawable/la_la_land" />
 
         <TextView
-            android:id="@+id/movie_title"
+            android:id="@+id/movieTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:selectableItemBackground"
