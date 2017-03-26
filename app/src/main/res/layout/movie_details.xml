@@ -96,10 +96,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:text="0.0"
-            android:textSize="30sp"
+            android:textSize="35sp"
             style="@style/MovieDetailYellowText"
-            android:layout_alignBottom="@id/rateStarsLayout"
+            android:layout_alignTop="@+id/rateStarsLayout"
             android:layout_toRightOf="@+id/rateStarsLayout"
             android:layout_toEndOf="@+id/rateStarsLayout" />
 
