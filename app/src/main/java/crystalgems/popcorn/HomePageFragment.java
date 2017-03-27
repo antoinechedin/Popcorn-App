@@ -2,8 +2,8 @@ package crystalgems.popcorn;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,7 @@ public class HomePageFragment extends Fragment {
     private int mPage;
 
     //TODO : Replace with real data
-    private String[] customDataset = {"Premier", "Deuxième", "Troisième", "Quatrième", "Cinquième", "Sixième", "Septième", "Huitième"};
+    private String[] customDataset = {"Premier", "Deuxième la la la la la la la la la la la la la la la la la la la la la la la la", "Troisième", "Quatrième la la la la la la la la la", "Cinquième", "Sixième", "Septième", "Huitième"};
 
     public static HomePageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -48,7 +48,7 @@ public class HomePageFragment extends Fragment {
         // Improve performance if we know components will have fixed size, which is the case
         homeRecyclerView.setHasFixedSize(true);
 
-        homeLayoutManager = new GridLayoutManager(getContext(), 2);
+        homeLayoutManager = new StaggeredGridLayoutManager(2, 1);
         homeRecyclerView.setLayoutManager(homeLayoutManager);
 
         // specify an adapter to create views for items in the recycler view
