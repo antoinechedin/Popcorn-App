@@ -53,13 +53,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:maxLines="2"
                         android:text="La La Land"
-                        android:textSize="30sp" />
+                        android:textSize="30sp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
                     <RatingBar
                         android:id="@+id/movieInputRatingBar"
@@ -214,15 +214,51 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:gravity="top"
             android:background="@color/colorBackgroundDark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/films_similaires"
+                style="@style/MovieDetailWhiteText"
+                android:id="@+id/filmsSimilairesTextView"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/movie_details_recycler_view"
+                android:layout_below="@id/filmsSimilairesTextView"
+                android:id="@+id/movie_details_general_recommendations_recycler_view"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:background="@color/colorBackgroundDark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recommandations_par_acteurs"
+                style="@style/MovieDetailWhiteText"
+                android:id="@+id/actorsRecommendationsTextView"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/actorsRecommendationsTextView"
+                android:id="@+id/movie_details_genre_recommendations_recycler_view"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 

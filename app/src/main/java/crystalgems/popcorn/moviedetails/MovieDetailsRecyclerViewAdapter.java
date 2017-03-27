@@ -1,4 +1,4 @@
-package crystalgems.popcorn;
+package crystalgems.popcorn.moviedetails;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import crystalgems.popcorn.R;
 
 /**
  * Created by Alex on 27/03/2017.

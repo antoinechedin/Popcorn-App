@@ -1,4 +1,4 @@
-package crystalgems.popcorn;
+package crystalgems.popcorn.homepage;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import crystalgems.popcorn.R;
 
 /**
  * Created by Alex on 25/03/2017.
