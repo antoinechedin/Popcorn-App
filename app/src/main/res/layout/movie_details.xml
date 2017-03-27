@@ -1,224 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:focusable="false">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/darkBlue"
-        android:gravity="top">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardViewMoviePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp">
-
-            <ImageView
-                android:id="@+id/moviePicture"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/la_la_land" />
-
-        </android.support.v7.widget.CardView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/cardViewMoviePicture"
-            android:layout_toRightOf="@+id/cardViewMoviePicture"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@color/darkBlue"
+            android:gravity="top"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
-            <TextView
-                android:id="@+id/movieTitle"
-                style="@style/MovieDetailWhiteText"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:maxLines="2"
-                android:text="La La Land"
-                android:textSize="30sp" />
+                android:orientation="horizontal">
 
-            <RatingBar
-                android:id="@+id/movieInputRatingBar"
-                style="@style/movieRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="10dp"
-                android:isIndicator="false"
-                android:numStars="5"
-                android:rating="0" />
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardViewMoviePicture"
+                    android:layout_width="150dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp">
 
-            <RatingBar
-                android:id="@+id/movieScoreRatingBar"
-                style="@style/movieRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/movieInputRatingBar"
-                android:layout_alignLeft="@id/movieInputRatingBar"
-                android:layout_alignStart="@id/movieInputRatingBar"
-                android:layout_marginBottom="15dp"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:rating="3.5"
-                android:scaleX="0.3"
-                android:scaleY="0.3" />
+                    <ImageView
+                        android:id="@+id/moviePicture"
+                        android:layout_width="150dp"
+                        android:layout_height="200dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/la_la_land" />
 
-            <TextView
-                android:id="@+id/rateTextView"
-                style="@style/MovieDetailYellowText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.0"
-                android:textSize="28sp"
-                android:layout_centerInParent="true"
-                android:layout_above="@+id/movieScoreRatingBar" />
+                </android.support.v7.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <TextView
+                        android:id="@+id/movieTitle"
+                        style="@style/MovieDetailWhiteText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="La La Land"
+                        android:textSize="30sp" />
+
+                    <RatingBar
+                        android:id="@+id/movieInputRatingBar"
+                        style="@style/movieRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="10dp"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:rating="0" />
+
+                    <RatingBar
+                        android:id="@+id/movieScoreRatingBar"
+                        style="@style/movieRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/movieInputRatingBar"
+                        android:layout_alignLeft="@id/movieInputRatingBar"
+                        android:layout_alignStart="@id/movieInputRatingBar"
+                        android:layout_marginBottom="15dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:rating="3.5"
+                        android:scaleX="0.3"
+                        android:scaleY="0.3" />
+
+                    <TextView
+                        android:id="@+id/rateTextView"
+                        style="@style/MovieDetailYellowText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.0"
+                        android:textSize="28sp"
+                        android:layout_centerInParent="true"
+                        android:layout_above="@+id/movieScoreRatingBar" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:padding="10dp"
-        android:background="@color/lightBlue"
-        style="@style/MovieDetailWhiteText">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/releaseDate"
-            android:text="@string/release_date"
-            style="@style/MovieDetailWhiteText"/>
+            android:gravity="top"
+            android:padding="10dp"
+            android:background="@color/lightBlue"
+            style="@style/MovieDetailWhiteText">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/releaseDateValue"
-            android:text="données ici"
-            android:layout_toRightOf="@id/releaseDate"
-            android:layout_toEndOf="@id/releaseDate"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/releaseDate"
+                android:text="@string/release_date"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/director"
-            android:text="@string/director"
-            android:layout_below="@id/releaseDate"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/releaseDateValue"
+                android:text="données ici"
+                android:layout_toRightOf="@id/releaseDate"
+                android:layout_toEndOf="@id/releaseDate"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/directorValue"
-            android:text="données ici"
-            android:layout_toRightOf="@id/director"
-            android:layout_toEndOf="@id/director"
-            android:layout_below="@id/releaseDate"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/director"
+                android:text="@string/director"
+                android:layout_below="@id/releaseDate"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actors"
-            android:text="@string/actors"
-            android:layout_below="@id/director"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/directorValue"
+                android:text="données ici"
+                android:layout_toRightOf="@id/director"
+                android:layout_toEndOf="@id/director"
+                android:layout_below="@id/releaseDate"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actorsValue"
-            android:text="données ici"
-            android:layout_toRightOf="@id/actors"
-            android:layout_toEndOf="@id/actors"
-            android:layout_below="@id/director"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/actors"
+                android:text="@string/actors"
+                android:layout_below="@id/director"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/categories"
-            android:text="@string/categories"
-            android:layout_below="@id/actors"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/actorsValue"
+                android:text="données ici"
+                android:layout_toRightOf="@id/actors"
+                android:layout_toEndOf="@id/actors"
+                android:layout_below="@id/director"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/categoriesValue"
-            android:text="données ici"
-            android:layout_toRightOf="@id/categories"
-            android:layout_toEndOf="@id/categories"
-            android:layout_below="@id/actors"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/categories"
+                android:text="@string/categories"
+                android:layout_below="@id/actors"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nationality"
-            android:text="@string/nationality"
-            android:layout_below="@id/categories"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/categoriesValue"
+                android:text="données ici"
+                android:layout_toRightOf="@id/categories"
+                android:layout_toEndOf="@id/categories"
+                android:layout_below="@id/actors"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                style="@style/MovieDetailWhiteText"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nationalityValue"
-            android:text="données ici"
-            android:layout_toRightOf="@id/nationality"
-            android:layout_toEndOf="@id/nationality"
-            android:layout_below="@id/categories"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            style="@style/MovieDetailWhiteText"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nationality"
+                android:text="@string/nationality"
+                android:layout_below="@id/categories"
+                style="@style/MovieDetailWhiteText"/>
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nationalityValue"
+                android:text="données ici"
+                android:layout_toRightOf="@id/nationality"
+                android:layout_toEndOf="@id/nationality"
+                android:layout_below="@id/categories"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                style="@style/MovieDetailWhiteText"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="top"
-        android:background="@color/colorBackgroundDark">
+        </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/movie_details_recycler_view"
-            android:orientation="horizontal"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:background="@color/colorBackgroundDark">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/movie_details_recycler_view"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
-    </RelativeLayout>
+            </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
