@@ -18,7 +18,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/email"
-        android:hint=""
+        android:hint="Login"
         android:layout_marginTop="12dp"
         android:layout_below="@+id/titleImageView"
         android:layout_centerHorizontal="true" />
@@ -45,41 +45,35 @@
         android:hint="Repeat Password"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/birthDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordSecondTime"
-        android:layout_alignStart="@+id/passwordSecondTime"
-        android:layout_below="@+id/passwordSecondTime"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Birth Date"
-        android:inputType="date" />
-
     <Spinner
         android:id="@+id/gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/birthDate"
-        android:layout_alignLeft="@+id/birthDate"
-        android:layout_alignRight="@+id/birthDate"
-        android:layout_alignStart="@+id/birthDate"
-        android:layout_below="@+id/birthDate"
-        android:layout_marginTop="12dp" />
+        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_alignEnd="@+id/editText2" />
 
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginBottom="12dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
         android:background="@color/colorPrimary"
         android:text="Inscription"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/passwordSecondTime"
+        android:layout_alignStart="@+id/passwordSecondTime"
+        android:layout_below="@+id/passwordSecondTime"
+        android:ems="10"
+        android:inputType="date" />
 
 </RelativeLayout>
