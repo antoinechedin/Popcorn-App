@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,18 +40,14 @@ public class MovieDetailsActivity extends Activity {
         setContentView(R.layout.movie_details);
 
         releaseDateValue = (TextView) findViewById(R.id.releaseDateValue);
-
         directorValue = (TextView) findViewById(R.id.directorValue);
-
         actorsValue = (TextView) findViewById(R.id.actorsValue);
-
         categoriesValue = (TextView) findViewById(R.id.categoriesValue);
-
         nationalityValue = (TextView) findViewById(R.id.nationalityValue);
 
         movieDetailsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_recycler_view);
 
-        // Improve performance if we know components will have fixed size, which is the case
+        // Improve performance if we know RecyclerView will have fixed size, which is the case
         movieDetailsRecyclerView.setHasFixedSize(true);
 
         movieDetailsLayoutManager = new LinearLayoutManager(this, 0, false);
@@ -62,7 +57,7 @@ public class MovieDetailsActivity extends Activity {
         rvAdapter = new MovieDetailsRecyclerViewAdapter(customDataset);
         movieDetailsRecyclerView.setAdapter(rvAdapter);
 
-        
+
 
     }
 }
