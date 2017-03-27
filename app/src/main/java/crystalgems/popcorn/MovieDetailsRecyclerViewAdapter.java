@@ -39,7 +39,7 @@ public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieD
         this.context = parent.getContext();
 
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_details_page_movie_card_view, parent, false);
         // We always can set the view's size, margins, paddings and layout parameters here
 
         view.setOnClickListener(new View.OnClickListener() {
