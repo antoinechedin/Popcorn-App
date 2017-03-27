@@ -74,7 +74,7 @@
             android:scaleType="fitCenter"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:layout_alignTop="@+id/textView"
+            android:layout_alignTop="@+id/rateTextView"
             android:layout_toRightOf="@+id/cardViewMoviePicture"
             android:layout_toEndOf="@id/cardViewMoviePicture"
             android:layout_alignRight="@+id/movieTitle"
@@ -166,7 +166,7 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/rateTextView"
             style="@style/MovieDetailYellowText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
 
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/rateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/lightBlue"
@@ -190,7 +190,7 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_alignBottom="@+id/cardViewMoviePicture"
-            android:layout_toLeftOf="@+id/textView"
+            android:layout_toLeftOf="@+id/rateTextView"
             android:layout_alignLeft="@+id/movieTitle"
             android:layout_alignStart="@+id/movieTitle" />
 
