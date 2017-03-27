@@ -31,7 +31,8 @@
             android:padding="20dp"
             android:textColor="#333"
             android:textSize="18sp"
-            tools:text="La La Land" />
+            tools:text="La La Land"
+            android:maxLines="3"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
