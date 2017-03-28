@@ -16,6 +16,12 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="MovieDetailSeeMoreButtonText">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:text">@string/seeMore</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
     <style name="movieRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingstars</item>
         <item name="android:tint">@color/colorAccent</item>

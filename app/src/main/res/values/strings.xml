@@ -16,4 +16,5 @@
     <string name="actors_recommendations">Recommandations par acteurs</string>
     <string name="directors_recommendations">Recommandations par réalisateurs</string>
     <string name="genres_recommendations">Recommandations par genres</string>
+    <string name="seeMore">Voir plus</string>
 </resources>
