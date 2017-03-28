@@ -12,6 +12,8 @@
     <string name="actors">Acteurs :</string>
     <string name="categories">Genres :</string>
     <string name="nationality">Nationalité :</string>
-    <string name="films_similaires">Films similaires</string>
-    <string name="recommandations_par_acteurs">Recommandations par acteurs</string>
+    <string name="general_recommendations">Films similaires</string>
+    <string name="actors_recommendations">Recommandations par acteurs</string>
+    <string name="directors_recommendations">Recommandations par réalisateurs</string>
+    <string name="genres_recommendations">Recommandations par genres</string>
 </resources>

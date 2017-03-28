@@ -14,7 +14,9 @@ import crystalgems.popcorn.R;
 
 public class MovieDetailsActivity extends Activity {
     private RecyclerView movieDetailsGeneralRecommendationsRecyclerView;
-    private RecyclerView movieDetailsGenreRecommendationsRecyclerView;
+    private RecyclerView movieDetailsActorsRecommendationsRecyclerView;
+    private RecyclerView movieDetailsDirectorsRecommendationsRecyclerView;
+    private RecyclerView movieDetailsGenresRecommendationsRecyclerView;
     private RecyclerView.Adapter rvAdapter;
     private TextView releaseDateValue;
     private TextView directorValue;
@@ -37,19 +39,27 @@ public class MovieDetailsActivity extends Activity {
         nationalityValue = (TextView) findViewById(R.id.nationalityValue);
 
         movieDetailsGeneralRecommendationsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_general_recommendations_recycler_view);
-        movieDetailsGenreRecommendationsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_genre_recommendations_recycler_view);
+        movieDetailsActorsRecommendationsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_actors_recommendations_recycler_view);
+        movieDetailsDirectorsRecommendationsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_directors_recommendations_recycler_view);
+        movieDetailsGenresRecommendationsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_genres_recommendations_recycler_view);
 
         // Improve performance if we know RecyclerView will have fixed size, which is the case
         movieDetailsGeneralRecommendationsRecyclerView.setHasFixedSize(true);
-        movieDetailsGenreRecommendationsRecyclerView.setHasFixedSize(true);
+        movieDetailsActorsRecommendationsRecyclerView.setHasFixedSize(true);
+        movieDetailsDirectorsRecommendationsRecyclerView.setHasFixedSize(true);
+        movieDetailsGenresRecommendationsRecyclerView.setHasFixedSize(true);
 
         movieDetailsGeneralRecommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 0, false));
-        movieDetailsGenreRecommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 0, false));
+        movieDetailsActorsRecommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 0, false));
+        movieDetailsDirectorsRecommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 0, false));
+        movieDetailsGenresRecommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 0, false));
 
         // specify an adapter to create views for items in the recycler view
         rvAdapter = new MovieDetailsRecyclerViewAdapter(customDataset);
         movieDetailsGeneralRecommendationsRecyclerView.setAdapter(rvAdapter);
-        movieDetailsGenreRecommendationsRecyclerView.setAdapter(rvAdapter); //TODO different adapter to match genre recommendations
+        movieDetailsActorsRecommendationsRecyclerView.setAdapter(rvAdapter); //TODO different adapter to match genre recommendations
+        movieDetailsDirectorsRecommendationsRecyclerView.setAdapter(rvAdapter); //TODO different adapter to match genre recommendations
+        movieDetailsGenresRecommendationsRecyclerView.setAdapter(rvAdapter); //TODO different adapter to match genre recommendations
 
 
 
