@@ -1,4 +1,4 @@
-package crystalgems.popcorn;
+package crystalgems.popcorn.homepage;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

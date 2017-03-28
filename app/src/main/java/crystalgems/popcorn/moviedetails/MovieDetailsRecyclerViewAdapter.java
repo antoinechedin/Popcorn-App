@@ -1,4 +1,4 @@
-package crystalgems.popcorn;
+package crystalgems.popcorn.moviedetails;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import crystalgems.popcorn.R;
 
 /**
  * Created by Alex on 27/03/2017.
@@ -39,7 +41,7 @@ public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieD
         this.context = parent.getContext();
 
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_details_page_movie_card_view, parent, false);
         // We always can set the view's size, margins, paddings and layout parameters here
 
         view.setOnClickListener(new View.OnClickListener() {
