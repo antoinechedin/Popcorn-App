@@ -218,19 +218,44 @@
             android:gravity="top"
             android:background="@color/colorBackgroundDark">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/general_recommendations"
-                style="@style/MovieDetailWhiteText"
-                android:id="@+id/filmsSimilairesTextView"
-                android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:id="@+id/generalRecommendationsLayout"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/generalRecommendationsSeeMoreButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@android:color/white"
+                    style="@style/MovieDetailSeeMoreButtonText"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/general_recommendations"
+                    style="@style/MovieDetailWhiteText"
+                    android:textSize="24sp"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@id/generalRecommendationsSeeMoreButton"
+                    android:layout_toStartOf="@id/generalRecommendationsSeeMoreButton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@id/filmsSimilairesTextView"
+                android:layout_below="@id/generalRecommendationsLayout"
                 android:id="@+id/movie_details_general_recommendations_recycler_view"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager">
@@ -245,19 +270,44 @@
             android:gravity="top"
             android:background="@color/colorBackgroundDark">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/actors_recommendations"
-                style="@style/MovieDetailWhiteText"
-                android:id="@+id/actorsRecommendationsTextView"
-                android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:id="@+id/actorsRecommendationsLayout"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/actorsRecommendationsSeeMoreButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@android:color/white"
+                    style="@style/MovieDetailSeeMoreButtonText"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/actors_recommendations"
+                    style="@style/MovieDetailWhiteText"
+                    android:textSize="24sp"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@id/actorsRecommendationsSeeMoreButton"
+                    android:layout_toStartOf="@id/actorsRecommendationsSeeMoreButton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@id/actorsRecommendationsTextView"
+                android:layout_below="@id/actorsRecommendationsLayout"
                 android:id="@+id/movie_details_actors_recommendations_recycler_view"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager">
@@ -272,19 +322,44 @@
             android:gravity="top"
             android:background="@color/colorBackgroundDark">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/directors_recommendations"
-                style="@style/MovieDetailWhiteText"
-                android:id="@+id/directorRecommendationsTextView"
-                android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:id="@+id/directorsRecommendationsLayout"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/directorsRecommendationsSeeMoreButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@android:color/white"
+                    style="@style/MovieDetailSeeMoreButtonText"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/directors_recommendations"
+                    style="@style/MovieDetailWhiteText"
+                    android:textSize="24sp"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@id/directorsRecommendationsSeeMoreButton"
+                    android:layout_toStartOf="@id/directorsRecommendationsSeeMoreButton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@id/directorRecommendationsTextView"
+                android:layout_below="@id/directorsRecommendationsLayout"
                 android:id="@+id/movie_details_directors_recommendations_recycler_view"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager">
@@ -299,19 +374,44 @@
             android:gravity="top"
             android:background="@color/colorBackgroundDark">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/genres_recommendations"
-                style="@style/MovieDetailWhiteText"
-                android:id="@+id/genresRecommendationsTextView"
-                android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:id="@+id/genresRecommendationsLayout"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/genresRecommendationsSeeMoreButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@android:color/white"
+                    style="@style/MovieDetailSeeMoreButtonText"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genres_recommendations"
+                    style="@style/MovieDetailWhiteText"
+                    android:textSize="24sp"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@id/genresRecommendationsSeeMoreButton"
+                    android:layout_toStartOf="@id/genresRecommendationsSeeMoreButton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@id/genresRecommendationsTextView"
+                android:layout_below="@id/genresRecommendationsLayout"
                 android:id="@+id/movie_details_genres_recommendations_recycler_view"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager">
