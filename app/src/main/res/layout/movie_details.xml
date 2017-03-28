@@ -221,7 +221,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/films_similaires"
+                android:text="@string/general_recommendations"
                 style="@style/MovieDetailWhiteText"
                 android:id="@+id/filmsSimilairesTextView"
                 android:textSize="24sp"
@@ -248,7 +248,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/recommandations_par_acteurs"
+                android:text="@string/actors_recommendations"
                 style="@style/MovieDetailWhiteText"
                 android:id="@+id/actorsRecommendationsTextView"
                 android:textSize="24sp"
@@ -258,7 +258,61 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@id/actorsRecommendationsTextView"
-                android:id="@+id/movie_details_genre_recommendations_recycler_view"
+                android:id="@+id/movie_details_actors_recommendations_recycler_view"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:background="@color/colorBackgroundDark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/directors_recommendations"
+                style="@style/MovieDetailWhiteText"
+                android:id="@+id/directorRecommendationsTextView"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/directorRecommendationsTextView"
+                android:id="@+id/movie_details_directors_recommendations_recycler_view"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:background="@color/colorBackgroundDark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/genres_recommendations"
+                style="@style/MovieDetailWhiteText"
+                android:id="@+id/genresRecommendationsTextView"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/genresRecommendationsTextView"
+                android:id="@+id/movie_details_genres_recommendations_recycler_view"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
