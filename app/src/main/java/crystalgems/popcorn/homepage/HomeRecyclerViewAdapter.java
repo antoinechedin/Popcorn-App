@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,13 +22,17 @@ import crystalgems.popcorn.R;
  */
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> implements JSONAsyncTask.StringConsumer{
-    /*private String[] dataset;*/
+    private String[] dataset;
+    private JSONArray jsonArray;
     private JSONObject jsonObject;
     private Context context;
 
-    /*public HomeRecyclerViewAdapter(String[] dataset) {
+    public HomeRecyclerViewAdapter(String[] dataset) {
         this.dataset = dataset;
-    }*/
+    }
+
+    public HomeRecyclerViewAdapter() {
+    }
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -48,15 +53,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             }
         });
 
-        ViewHolder viewHolder = new ViewHolder(view);
-
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         try {
+            jsonObject = (JSONObject) jsonArray.get(position);
             String movieTitle = jsonObject.getString("titleImdb");
             String movieYear = jsonObject.getString("year");
 
@@ -73,22 +77,24 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         moviePicture.setImageResource(R.drawable.la_la_land);
 
         // Movie title
-        /*TextView movieTitle = (TextView) holder.view.findViewById(R.id.movieTitle);
-        movieTitle.setText(dataset[position]);*/
+        if (dataset != null) {
+            TextView movieTitle = (TextView) holder.view.findViewById(R.id.movieTitle);
+            movieTitle.setText(dataset[position]);
+        }
     }
 
     // Return the size of the dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        if (jsonObject != null)
-            return jsonObject.length();
+        if (jsonArray != null)
+            return jsonArray.length();
         else
             return 0;
     }
 
     @Override
     public void setJSONString(String jsonString) throws JSONException {
-        jsonObject = new JSONObject(jsonString.substring(jsonString.indexOf("{"), jsonString.lastIndexOf("}") + 1)); //Remove the first and last character to fit json format.
+        jsonArray = new JSONArray(jsonString); //Remove the first and last character to fit json format.
         notifyDataSetChanged();
     }
 
