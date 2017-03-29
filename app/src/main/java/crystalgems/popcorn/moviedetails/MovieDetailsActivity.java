@@ -1,6 +1,7 @@
 package crystalgems.popcorn.moviedetails;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -16,7 +17,9 @@ import crystalgems.popcorn.seemore.SeeMoreRecommendationsActivity;
  * Created by Alex on 26/03/2017.
  */
 
-public class MovieDetailsActivity extends Activity implements View.OnClickListener {
+public class MovieDetailsActivity extends Activity {
+    private Context context;
+
     private RecyclerView movieDetailsGeneralRecommendationsRecyclerView;
     private RecyclerView movieDetailsActorsRecommendationsRecyclerView;
     private RecyclerView movieDetailsDirectorsRecommendationsRecyclerView;
@@ -40,6 +43,7 @@ public class MovieDetailsActivity extends Activity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details);
+        context = this;
 
         releaseDateValue = (TextView) findViewById(R.id.releaseDateValue);
         directorValue = (TextView) findViewById(R.id.directorValue);
@@ -50,6 +54,42 @@ public class MovieDetailsActivity extends Activity implements View.OnClickListen
         actorsRecommendationsSeeMoreButton = (AppCompatButton) findViewById(R.id.actorsRecommendationsSeeMoreButton);
         directorsRecommendationsSeeMoreButton = (AppCompatButton) findViewById(R.id.directorsRecommendationsSeeMoreButton);
         genresRecommendationsSeeMoreButton = (AppCompatButton) findViewById(R.id.genresRecommendationsSeeMoreButton);
+
+        generalRecommendationsSeeMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SeeMoreRecommendationsActivity.class);
+                //TODO intent put extra or set flags
+                startActivity(intent);
+            }
+        });
+
+        actorsRecommendationsSeeMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SeeMoreRecommendationsActivity.class);
+                //TODO intent put extra or set flags
+                startActivity(intent);
+            }
+        });
+
+        directorsRecommendationsSeeMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SeeMoreRecommendationsActivity.class);
+                //TODO intent put extra or set flags
+                startActivity(intent);
+            }
+        });
+
+        generalRecommendationsSeeMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SeeMoreRecommendationsActivity.class);
+                //TODO intent put extra or set flags
+                startActivity(intent);
+            }
+        });
 
         movieDetailsGeneralRecommendationsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_general_recommendations_recycler_view);
         movieDetailsActorsRecommendationsRecyclerView = (RecyclerView) findViewById(R.id.movie_details_actors_recommendations_recycler_view);
@@ -76,27 +116,4 @@ public class MovieDetailsActivity extends Activity implements View.OnClickListen
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == generalRecommendationsSeeMoreButton) {
-            Intent intent = new Intent(this, SeeMoreRecommendationsActivity.class);
-            //TODO intent put extra or set flags
-            startActivity(intent);
-        }
-        else if (v == actorsRecommendationsSeeMoreButton) {
-            Intent intent = new Intent(this, SeeMoreRecommendationsActivity.class);
-            //TODO intent put extra or set flags
-            startActivity(intent);
-        }
-        else if (v == directorsRecommendationsSeeMoreButton) {
-            Intent intent = new Intent(this, SeeMoreRecommendationsActivity.class);
-            //TODO intent put extra or set flags
-            startActivity(intent);
-        }
-        else if (v == genresRecommendationsSeeMoreButton) {
-            Intent intent = new Intent(this, SeeMoreRecommendationsActivity.class);
-            //TODO intent put extra or set flags
-            startActivity(intent);
-        }
-    }
 }
