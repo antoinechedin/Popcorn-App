@@ -59,27 +59,15 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        //Movie title and year
         try {
             jsonObject = (JSONObject) jsonArray.get(position);
             String movieTitle = jsonObject.getString("titleImdb");
             String movieYear = jsonObject.getString("year");
 
-            System.out.println("Title : " + movieTitle);
-            System.out.println("Year : " + movieYear);
-
-            holder.setElements(movieTitle, movieYear);
+            holder.setTitleYearElements(movieTitle, movieYear);
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-
-        // Movie picture
-        ImageView moviePicture = (ImageView) holder.view.findViewById(R.id.movie_picture);
-        moviePicture.setImageResource(R.drawable.la_la_land);
-
-        // Movie title
-        if (dataset != null) {
-            TextView movieTitle = (TextView) holder.view.findViewById(R.id.movieTitle);
-            movieTitle.setText(dataset[position]);
         }
     }
 
@@ -94,7 +82,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     @Override
     public void setJSONString(String jsonString) throws JSONException {
-        jsonArray = new JSONArray(jsonString); //Remove the first and last character to fit json format.
+        jsonArray = new JSONArray(jsonString);
         notifyDataSetChanged();
     }
 
@@ -102,20 +90,23 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         public View view;
         private TextView movieTitleTextView;
         private TextView movieYearTextView;
+        private ImageView moviePosterImageView;
 
         public ViewHolder(final View vhView) {
             super(vhView);
             view = vhView;
             movieTitleTextView = (TextView) vhView.findViewById(R.id.movieTitle);
-            //movieYearTextView = (TextView) vhView.findViewById(R.id.);
+            movieYearTextView = (TextView) vhView.findViewById(R.id.movieYear);
+            moviePosterImageView = (ImageView) vhView.findViewById(R.id.movie_picture);
         }
 
 
-        public void setElements(String movieTitle, String moveYear) {
+        public void setTitleYearElements(String movieTitle, String moveYear) {
             movieTitleTextView.setText(movieTitle);
-            //movieYearTextView.setText(moveYear);
+            movieYearTextView.setText(moveYear);
 
-            //TODO  setImageIfExists(image)
+            //TODO salut
+            moviePosterImageView.setImageResource(R.drawable.la_la_land);
         }
     }
 }

@@ -20,15 +20,13 @@ public class HomePageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
     private RecyclerView homeRecyclerView;
     private RecyclerView.LayoutManager homeLayoutManager;
-    private HomeRecyclerViewAdapter rvAdapter;
+    private HomeRecyclerViewAdapter rvTextsAdapter;
 
-    private JSONAsyncTask jsonAsyncTask;
+    private JSONAsyncTask jsonTextAsyncTask;
+    private JSONAsyncTask jsonPosterAsyncTask;
 
 
     private int mPage;
-
-    //TODO : Replace with real data
-    private String[] customDataset = {"Premier", "Deuxième la la la la la la la la la la la la la la la la la la la la la la la la", "Troisième", "Quatrième la la la la la la la la la", "Cinquième", "Sixième", "Septième", "Huitième"};
 
     public static HomePageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -58,8 +56,8 @@ public class HomePageFragment extends Fragment {
         homeRecyclerView.setLayoutManager(homeLayoutManager);
 
         // specify an adapter to create views for items in the recycler view
-        rvAdapter = new HomeRecyclerViewAdapter(/*customDataset*/);
-        homeRecyclerView.setAdapter(rvAdapter);
+        rvTextsAdapter = new HomeRecyclerViewAdapter();
+        homeRecyclerView.setAdapter(rvTextsAdapter);
 
         runAsyncTasks();
 
@@ -69,8 +67,7 @@ public class HomePageFragment extends Fragment {
     private void runAsyncTasks() {
         //runs AsyncTasks in parallel
 
-        jsonAsyncTask = new JSONAsyncTask(rvAdapter);
-        jsonAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
-
+        jsonTextAsyncTask = new JSONAsyncTask(rvTextsAdapter);
+        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list", "http://www.omdbapi.com/?s=fellowship+ring");
     }
 }
