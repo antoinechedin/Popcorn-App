@@ -1,5 +1,6 @@
 package crystalgems.popcorn.homepage;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
 import crystalgems.popcorn.R;
 
 /**
@@ -18,13 +20,13 @@ public class HomePageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
     private RecyclerView homeRecyclerView;
     private RecyclerView.LayoutManager homeLayoutManager;
-    private RecyclerView.Adapter rvAdapter;
+    private HomeRecyclerViewAdapter rvTextsAdapter;
+
+    private JSONAsyncTask jsonTextAsyncTask;
+    private JSONAsyncTask jsonPosterAsyncTask;
 
 
     private int mPage;
-
-    //TODO : Replace with real data
-    private String[] customDataset = {"Premier", "Deuxième la la la la la la la la la la la la la la la la la la la la la la la la", "Troisième", "Quatrième la la la la la la la la la", "Cinquième", "Sixième", "Septième", "Huitième"};
 
     public static HomePageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -54,9 +56,18 @@ public class HomePageFragment extends Fragment {
         homeRecyclerView.setLayoutManager(homeLayoutManager);
 
         // specify an adapter to create views for items in the recycler view
-        rvAdapter = new HomeRecyclerViewAdapter(customDataset);
-        homeRecyclerView.setAdapter(rvAdapter);
+        rvTextsAdapter = new HomeRecyclerViewAdapter();
+        homeRecyclerView.setAdapter(rvTextsAdapter);
+
+        runAsyncTasks();
 
         return rootView;
+    }
+
+    private void runAsyncTasks() {
+        //runs AsyncTasks in parallel
+
+        jsonTextAsyncTask = new JSONAsyncTask(rvTextsAdapter);
+        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list", "http://www.omdbapi.com/?s=fellowship+ring");
     }
 }
