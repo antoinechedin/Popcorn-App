@@ -1,5 +1,6 @@
 package crystalgems.popcorn.homepage;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
 import crystalgems.popcorn.R;
 
 /**
@@ -18,7 +20,9 @@ public class HomePageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
     private RecyclerView homeRecyclerView;
     private RecyclerView.LayoutManager homeLayoutManager;
-    private RecyclerView.Adapter rvAdapter;
+    private HomeRecyclerViewAdapter rvAdapter;
+
+    private JSONAsyncTask jsonAsyncTask;
 
 
     private int mPage;
@@ -54,9 +58,19 @@ public class HomePageFragment extends Fragment {
         homeRecyclerView.setLayoutManager(homeLayoutManager);
 
         // specify an adapter to create views for items in the recycler view
-        rvAdapter = new HomeRecyclerViewAdapter(customDataset);
+        rvAdapter = new HomeRecyclerViewAdapter(/*customDataset*/);
         homeRecyclerView.setAdapter(rvAdapter);
 
+        runAsyncTasks();
+
         return rootView;
+    }
+
+    private void runAsyncTasks() {
+        //runs AsyncTasks in parallel
+
+        jsonAsyncTask = new JSONAsyncTask(rvAdapter);
+        jsonAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
+
     }
 }
