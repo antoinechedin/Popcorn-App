@@ -26,7 +26,6 @@ public class JSONAsyncTask extends AsyncTask<String, Void, String> {
 
     private OkHttpClient client;
     private static Response response;
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private StringConsumer jsonBody;
 
     public JSONAsyncTask(StringConsumer stringConsumer) {
@@ -37,8 +36,9 @@ public class JSONAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            URL url = new URL(params[0]);
-            Request request = new Request.Builder().url(url).build();
+            URL urlPopcorn = new URL(params[0]);
+            URL urlImdb = new URL(params[1]);
+            Request request = new Request.Builder().url(urlPopcorn).build();
             response = client.newCall(request).execute();
         }
         catch (IOException e) {
