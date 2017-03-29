@@ -1,12 +1,17 @@
 package crystalgems.popcorn;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import crystalgems.popcorn.homepage.HomeFragmentPagerAdapter;
+import crystalgems.popcorn.seemore.SeeMoreRecommendationsActivity;
+import crystalgems.popcorn.user.ProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -33,5 +38,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+     // Handle item selection
+    switch (item.getItemId()) {
+        case R.id.action_search:
+            //TODO barre de recherche
+            return true;
+        case R.id.action_profile:
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+             return true;
+         default:
+            return super.onOptionsItemSelected(item);
+    }
     }
 }
