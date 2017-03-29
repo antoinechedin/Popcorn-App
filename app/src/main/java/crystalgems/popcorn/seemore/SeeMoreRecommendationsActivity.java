@@ -41,7 +41,7 @@ public class SeeMoreRecommendationsActivity extends Activity {
         homeRecyclerView.setLayoutManager(manager);
 
         // specify an adapter to create views for items in the recycler view
-        rvAdapter = new HomeRecyclerViewAdapter();
+        rvAdapter = new HomeRecyclerViewAdapter(customDataset);
         homeRecyclerView.setAdapter(rvAdapter);
 
     }
