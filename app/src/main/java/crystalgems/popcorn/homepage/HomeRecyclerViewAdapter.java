@@ -1,6 +1,7 @@
 package crystalgems.popcorn.homepage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import crystalgems.popcorn.R;
+import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
 import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
 
 /**
@@ -31,6 +33,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     private JSONObject jsonImdbSearchObject;
     private JSONObject imdbResponse;
     private Context context;
+    private View view;
+    private String movieTitle;
+    private String movieYear;
+    private String posterUrl;
+    private ArrayList<JSONObject> jsonMovieArrayList = new ArrayList<>();
 
     public HomeRecyclerViewAdapter(String[] dataset) {
         this.dataset = dataset;
@@ -46,7 +53,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         this.context = parent.getContext();
 
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_page_movie_card_view, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_page_movie_card_view, parent, false);
         // We always can set the view's size, margins, paddings and layout parameters here
 
         return new ViewHolder(view);
@@ -54,7 +61,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        System.out.println("onBindViewHolder");
         try {
             jsonChildArray = (JSONArray) jsonParentArray.get(0);
             jsonPopcornObject = (JSONObject) jsonChildArray.get(position);
@@ -63,30 +71,30 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                 jsonChildArray = (JSONArray) jsonParentArray.get(position + 1);
                 jsonImdbSearchObject = (JSONObject) jsonChildArray.get(0);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-
-        try {
             if (jsonPopcornObject != null) {
                 //Movie title
-                String movieTitle = jsonPopcornObject.getString("titleImdb");
+                movieTitle = jsonPopcornObject.getString("titleImdb");
                 if (!movieTitle.equals(""))
                     holder.setTitleElements(movieTitle);
 
                 // Movie Year
-                String movieYear = jsonPopcornObject.getString("year");
+                movieYear = jsonPopcornObject.getString("year");
                 holder.setYearElements(movieYear);
 
                 // Movie Json
                 holder.setMovieJSON(jsonPopcornObject);
             }
-
             if (jsonImdbSearchObject != null) {
                 // Movie Poster
-                String posterUrl = jsonImdbSearchObject.getString("Poster");
+                posterUrl = jsonImdbSearchObject.getString("Poster");
             }
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("titleImdb", movieTitle);
+            jsonObject.put("year", movieYear);
+            jsonObject.put("Poster", posterUrl);
+            jsonMovieArrayList.add(jsonObject);
         }
         catch (JSONException e) {
             e.printStackTrace();
@@ -102,6 +110,23 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("ARRAYLIST:" + jsonMovieArrayList);
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                try {
+                    intent.putExtra("title", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("titleImdb"));
+                    intent.putExtra("year", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("year"));
+                    intent.putExtra("posterUrl", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("Poster"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //TODO add content/flags to intent
+                context.startActivity(intent);
+            }
+        });
     }
 
     // Return the size of the dataset (invoked by the layout manager)
@@ -122,14 +147,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void setJSONString(ArrayList<String> jsonStringArrayList) throws JSONException {
         if (jsonStringArrayList != null) {
             if (!jsonStringArrayList.isEmpty()) {
+
+
                 //If it is from popcorn json
                 jsonParentArray.put(new JSONArray(jsonStringArrayList.get(0)));
-                System.out.println("JSON ARRAY POPCORN:" + jsonParentArray);
 
                 //Else it is from Imdb json
                 for (int i = 1; i < jsonStringArrayList.size(); i++) {
                     JSONObject searchObject = new JSONObject(jsonStringArrayList.get(i));
-                    System.out.println("SEARCH OBJECT:" + searchObject);
                     JSONArray arraySearchObject = new JSONArray();
 
                     try {
@@ -139,7 +164,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                     }
 
                     jsonParentArray.put(arraySearchObject);
-                    System.out.println("JSON ARRAY IMDB:" + jsonParentArray);
                 }
 
                 notifyDataSetChanged();

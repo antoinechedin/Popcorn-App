@@ -11,9 +11,6 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import crystalgems.popcorn.R;
 import crystalgems.popcorn.seemore.SeeMoreRecommendationsActivity;
 
@@ -44,7 +41,6 @@ public class MovieDetailsActivity extends Activity {
     private AppCompatButton directorsRecommendationsSeeMoreButton;
     private AppCompatButton genresRecommendationsSeeMoreButton;
 
-    private JSONObject jsonPopcornObject;
     private String posterURL;
 
 
@@ -57,12 +53,12 @@ public class MovieDetailsActivity extends Activity {
         context = this;
 
         Intent intent = getIntent();
-        try {
+       /* try {
             jsonPopcornObject = new JSONObject(intent.getStringExtra("movieJSONString"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        posterURL = intent.getStringExtra("posterURL");
+        posterURL = intent.getStringExtra("posterURL");*/
 
         titleValue = (TextView) findViewById(R.id.movieTitle);
         rateValue = (TextView) findViewById(R.id.rateTextView);
@@ -78,16 +74,13 @@ public class MovieDetailsActivity extends Activity {
         genresRecommendationsSeeMoreButton = (AppCompatButton) findViewById(R.id.genresRecommendationsSeeMoreButton);
 
         // init values
-        try {
-            titleValue.setText(jsonPopcornObject.getString("titleImdb"));
-            releaseDateValue.setText("Date : " + jsonPopcornObject.getString("year"));
-            double rating = Double.parseDouble(jsonPopcornObject.getString("totalScore")) / Double.parseDouble(jsonPopcornObject.getString("ratingNum"));
+
+        titleValue.setText(intent.getStringExtra("title"));
+        releaseDateValue.setText("Date : " + intent.getStringExtra("year"));
+           /* double rating = Double.parseDouble(jsonPopcornObject.getString("totalScore")) / Double.parseDouble(jsonPopcornObject.getString("ratingNum"));
             rating = round(rating, 1);
             ratingBar.setRating((float) rating);
-            rateValue.setText(String.valueOf(rating));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            rateValue.setText(String.valueOf(rating));*/
 
         generalRecommendationsSeeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
