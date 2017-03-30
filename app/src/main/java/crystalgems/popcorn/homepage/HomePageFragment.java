@@ -1,5 +1,6 @@
 package crystalgems.popcorn.homepage;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
-import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
+import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
 import crystalgems.popcorn.R;
 
 /**
@@ -23,7 +25,6 @@ public class HomePageFragment extends Fragment {
     private HomeRecyclerViewAdapter rvTextsAdapter;
 
     private JSONAsyncTask jsonTextAsyncTask;
-    private JSONAsyncTask jsonPosterAsyncTask;
 
 
     private int mPage;
@@ -45,12 +46,17 @@ public class HomePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View rootView = inflater.inflate(R.layout.home_fragment_page, container, false);
 
         homeRecyclerView = (RecyclerView) rootView.findViewById(R.id.movie_card_recycler_view);
 
         // Improve performance if we know components will have fixed size, which is the case
         homeRecyclerView.setHasFixedSize(true);
+        homeRecyclerView.setItemViewCacheSize(20);
+        homeRecyclerView.setDrawingCacheEnabled(true);
+        //homeRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         homeLayoutManager = new StaggeredGridLayoutManager(2, 1);
         homeRecyclerView.setLayoutManager(homeLayoutManager);
@@ -61,13 +67,20 @@ public class HomePageFragment extends Fragment {
 
         runAsyncTasks();
 
+
+        final ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.itemProgressBar);
+        rvTextsAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
         return rootView;
     }
 
     private void runAsyncTasks() {
         //runs AsyncTasks in parallel
-
         jsonTextAsyncTask = new JSONAsyncTask(rvTextsAdapter);
-        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list", "http://www.omdbapi.com/?s=fellowship+ring");
+        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
     }
 }
