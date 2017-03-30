@@ -20,7 +20,8 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
+import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
+import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
 import crystalgems.popcorn.R;
 import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
 
@@ -33,7 +34,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     private JSONArray jsonParentArray = new JSONArray();
     private JSONArray jsonChildArray = new JSONArray();
     private JSONObject jsonPopcornObject;
-    private JSONObject jsonImdbObject;
+    private JSONObject jsonImdbSearchObject;
+    private JSONObject imdbResponse;
     private Context context;
 
     public HomeRecyclerViewAdapter(String[] dataset) {
@@ -79,7 +81,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
             if (jsonParentArray.length() > 1) {
                 jsonChildArray = (JSONArray) jsonParentArray.get(position + 1);
-                jsonImdbObject = (JSONObject) jsonChildArray.get(0);
+                jsonImdbSearchObject = (JSONObject) jsonChildArray.get(0);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -100,10 +102,18 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                 // Movie Json
                 holder.setMovieJSON(jsonPopcornObject);
             }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
 
             if (jsonImdbObject != null) {
                 // Movie Poster
                 String posterUrl = jsonImdbObject.getString("Poster");
+        //Movie poster
+        try {
+            if (jsonImdbSearchObject != null) {
+                String posterUrl = jsonImdbSearchObject.getString("Poster");
                 holder.setPosterElements(posterUrl);
             }
         } catch (JSONException e) {
@@ -185,17 +195,27 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             movieYearTextView.setText(moveYear);
         }
 
+        /**
+         * set Poster element to to picture at posterUrl
+         */
         public void setPosterElements(String posterUrl) {
-            //TODO salut
-            new DownloadImageTask(moviePosterImageView).execute(posterUrl);
-            //moviePosterImageView.setImageResource(R.color.cardview_dark_background);
+            new DownloadImageTask(moviePosterImageView, view.getContext()).execute(posterUrl);
+        }
+
+        /**
+         * set Poster element to default picture
+         */
+        public void setPosterElements() {
+            moviePosterImageView.setImageResource(R.color.cardview_dark_background);
         }
 
         private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             ImageView bmImage;
+            private Context context;
 
-            public DownloadImageTask(ImageView bmImage) {
+            public DownloadImageTask(ImageView bmImage, Context context) {
                 this.bmImage = bmImage;
+                this.context = context;
             }
 
             protected Bitmap doInBackground(String... urls) {
@@ -207,6 +227,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                 } catch (Exception e) {
                     Log.e("Error", e.getMessage());
                     e.printStackTrace();
+                    mIcon11 = BitmapFactory.decodeResource(context.getResources(), R.drawable.la_la_land);
                 }
                 return mIcon11;
             }
