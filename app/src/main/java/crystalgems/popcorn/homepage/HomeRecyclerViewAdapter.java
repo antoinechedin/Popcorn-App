@@ -1,27 +1,22 @@
 package crystalgems.popcorn.homepage;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import crystalgems.popcorn.R;
-import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
 import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
 
 /**
@@ -53,20 +48,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         // create a new view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_page_movie_card_view, parent, false);
         // We always can set the view's size, margins, paddings and layout parameters here
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MovieDetailsActivity.class);
-                intent.putExtra("movieJSONString", ((ViewHolder) v.getParent()).getMovieJSON().toString());
-                try {
-                    intent.putExtra("posterURL", jsonImdbSearchObject.getString("Poster"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                context.startActivity(intent);
-            }
-        });
 
         return new ViewHolder(view);
     }
@@ -201,7 +182,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
          * set Poster element to to picture at posterUrl
          */
         public void setPosterElements(String posterUrl) {
-            new DownloadImageTask(moviePosterImageView, view.getContext()).execute(posterUrl);
+            Picasso.with(view.getContext()).load(posterUrl).into(moviePosterImageView);
+
         }
 
         /**
@@ -209,34 +191,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
          */
         public void setPosterElements() {
             moviePosterImageView.setImageResource(R.color.cardview_dark_background);
-        }
-
-        private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-            ImageView bmImage;
-            private Context context;
-
-            public DownloadImageTask(ImageView bmImage, Context context) {
-                this.bmImage = bmImage;
-                this.context = context;
-            }
-
-            protected Bitmap doInBackground(String... urls) {
-                String urldisplay = urls[0];
-                Bitmap mIcon11 = null;
-                try {
-                    InputStream in = new java.net.URL(urldisplay).openStream();
-                    mIcon11 = BitmapFactory.decodeStream(in);
-                } catch (Exception e) {
-                    Log.e("Error", e.getMessage());
-                    e.printStackTrace();
-                    mIcon11 = BitmapFactory.decodeResource(context.getResources(), R.drawable.la_la_land);
-                }
-                return mIcon11;
-            }
-
-            protected void onPostExecute(Bitmap result) {
-                bmImage.setImageBitmap(result);
-            }
         }
     }
 }
