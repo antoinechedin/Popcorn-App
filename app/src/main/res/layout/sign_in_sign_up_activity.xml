@@ -57,7 +57,7 @@
         android:layout_alignStart="@+id/passwordEditText"
         android:ems="10"
         android:hint="@string/login"
-        android:maxLines="1" />
+        android:singleLine="true" />
 
     <View
         android:id="@+id/signUpSeparator"
@@ -91,6 +91,6 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:maxLines="1" />
+        android:singleLine="true" />
 
 </RelativeLayout>
