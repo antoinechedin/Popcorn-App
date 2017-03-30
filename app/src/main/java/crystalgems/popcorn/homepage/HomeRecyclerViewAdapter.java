@@ -20,10 +20,9 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
-import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
 import crystalgems.popcorn.R;
 import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
+import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
 
 /**
  * Created by Alex on 26/03/2017.
@@ -61,7 +60,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 intent.putExtra("movieJSONString", ((ViewHolder) v.getParent()).getMovieJSON().toString());
                 try {
-                    intent.putExtra("posterURL", jsonImdbObject.getString("Poster"));
+                    intent.putExtra("posterURL", jsonImdbSearchObject.getString("Poster"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -102,14 +101,17 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                 // Movie Json
                 holder.setMovieJSON(jsonPopcornObject);
             }
+
+            if (jsonImdbSearchObject != null) {
+                // Movie Poster
+                String posterUrl = jsonImdbSearchObject.getString("Poster");
+            }
         }
         catch (JSONException e) {
             e.printStackTrace();
         }
 
-            if (jsonImdbObject != null) {
-                // Movie Poster
-                String posterUrl = jsonImdbObject.getString("Poster");
+
         //Movie poster
         try {
             if (jsonImdbSearchObject != null) {
