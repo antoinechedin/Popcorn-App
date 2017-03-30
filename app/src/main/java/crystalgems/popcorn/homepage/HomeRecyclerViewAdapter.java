@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
 import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
@@ -77,7 +78,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
         try {
             if (jsonParentArray.length() > 1) {
-                jsonChildArray = (JSONArray) jsonParentArray.get(1);
+                jsonChildArray = (JSONArray) jsonParentArray.get(position + 1);
                 jsonImdbObject = (JSONObject) jsonChildArray.get(0);
             }
         }
@@ -128,7 +129,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                 JSONArray jsonArrayToReturn = (JSONArray) jsonParentArray.get(0);
                 return jsonArrayToReturn.length();
             } catch (JSONException e) {
-                e.printStackTrace();
                 return 0;
             }
         else
@@ -136,19 +136,29 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     }
 
     @Override
-    public void setJSONString(String jsonString) throws JSONException {
-        if (jsonString != null) {
-            if (!jsonString.equals("")) {
-                if (jsonString.substring(0,1).equals("[")) { //If the json is already an array
-                    jsonParentArray.put(new JSONArray(jsonString));
-                    System.out.println("JSON ARRAY IF:" + jsonParentArray);
-                }
-                else { //else, we get the array
-                    JSONObject searchObject = new JSONObject(jsonString);
-                    JSONArray arraySearchObject = (JSONArray) searchObject.get("Search");
+    public void setJSONString(ArrayList<String> jsonStringArrayList) throws JSONException {
+        if (jsonStringArrayList != null) {
+            if (!jsonStringArrayList.isEmpty()) {
+                //If it is from popcorn json
+                jsonParentArray.put(new JSONArray(jsonStringArrayList.get(0)));
+                System.out.println("JSON ARRAY POPCORN:" + jsonParentArray);
+
+                //Else it is from Imdb json
+                for (int i = 1; i < jsonStringArrayList.size(); i++) {
+                    JSONObject searchObject = new JSONObject(jsonStringArrayList.get(i));
+                    System.out.println("SEARCH OBJECT:" + searchObject);
+                    JSONArray arraySearchObject = new JSONArray();
+
+                    try {
+                        //if (searchObject.get("Response") == "True") //TODO
+                        arraySearchObject = (JSONArray) searchObject.get("Search");
+                    } catch (Exception ignored) {
+                    }
+
                     jsonParentArray.put(arraySearchObject);
-                    System.out.println("JSON ARRAY ELSE:" + jsonParentArray);
+                    System.out.println("JSON ARRAY IMDB:" + jsonParentArray);
                 }
+
                 notifyDataSetChanged();
             }
         }
