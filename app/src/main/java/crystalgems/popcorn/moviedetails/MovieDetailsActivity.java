@@ -45,7 +45,7 @@ public class MovieDetailsActivity extends Activity {
         setContentView(R.layout.movie_details);
         context = this;
 
-        releaseDateValue = (TextView) findViewById(R.id.releaseDateValue);
+        releaseDateValue = (TextView) findViewById(R.id.releaseDate);
         directorValue = (TextView) findViewById(R.id.directorValue);
         actorsValue = (TextView) findViewById(R.id.actorsValue);
         categoriesValue = (TextView) findViewById(R.id.categoriesValue);
