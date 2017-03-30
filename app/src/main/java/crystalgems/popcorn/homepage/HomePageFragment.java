@@ -1,5 +1,6 @@
 package crystalgems.popcorn.homepage;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
 import crystalgems.popcorn.R;
@@ -45,6 +47,8 @@ public class HomePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View rootView = inflater.inflate(R.layout.home_fragment_page, container, false);
 
         homeRecyclerView = (RecyclerView) rootView.findViewById(R.id.movie_card_recycler_view);
@@ -61,6 +65,14 @@ public class HomePageFragment extends Fragment {
 
         runAsyncTasks();
 
+
+        final ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.itemProgressBar);
+        rvTextsAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
         return rootView;
     }
 
