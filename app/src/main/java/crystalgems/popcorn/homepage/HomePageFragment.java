@@ -68,6 +68,6 @@ public class HomePageFragment extends Fragment {
         //runs AsyncTasks in parallel
 
         jsonTextAsyncTask = new JSONAsyncTask(rvTextsAdapter);
-        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list", "http://www.omdbapi.com/?s=fellowship+ring");
+        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
     }
 }
