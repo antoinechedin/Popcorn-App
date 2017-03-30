@@ -21,14 +21,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
-import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
 import crystalgems.popcorn.R;
+import crystalgems.popcorn.moviedetails.MovieDetailsActivity;
 
 /**
  * Created by Alex on 26/03/2017.
  */
 
-public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> implements JSONAsyncTask.StringConsumer{
+public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> implements JSONAsyncTask.StringConsumer {
     private String[] dataset;
     private JSONArray jsonParentArray = new JSONArray();
     private JSONArray jsonChildArray = new JSONArray();
@@ -57,7 +57,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
-                //TODO add content/flags to intent
+                intent.putExtra("movieJSONString", ((ViewHolder) v.getParent()).getMovieJSON().toString());
+                try {
+                    intent.putExtra("posterURL", jsonImdbObject.getString("Poster"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 context.startActivity(intent);
             }
         });
@@ -71,52 +76,37 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         try {
             jsonChildArray = (JSONArray) jsonParentArray.get(0);
             jsonPopcornObject = (JSONObject) jsonChildArray.get(position);
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        try {
             if (jsonParentArray.length() > 1) {
                 jsonChildArray = (JSONArray) jsonParentArray.get(position + 1);
                 jsonImdbObject = (JSONObject) jsonChildArray.get(0);
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        //Movie title
+
         try {
-            if (jsonImdbObject != null) {
+            if (jsonPopcornObject != null) {
+                //Movie title
                 String movieTitle = jsonPopcornObject.getString("titleImdb");
                 if (!movieTitle.equals(""))
                     holder.setTitleElements(movieTitle);
-            }
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        //Movie year
-        try {
-            if (jsonImdbObject != null) {
+                // Movie Year
                 String movieYear = jsonPopcornObject.getString("year");
                 holder.setYearElements(movieYear);
-            }
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        //Movie poster
-        try {
+                // Movie Json
+                holder.setMovieJSON(jsonPopcornObject);
+            }
+
             if (jsonImdbObject != null) {
+                // Movie Poster
                 String posterUrl = jsonImdbObject.getString("Poster");
                 holder.setPosterElements(posterUrl);
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -169,6 +159,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         private TextView movieTitleTextView;
         private TextView movieYearTextView;
         private ImageView moviePosterImageView;
+        private JSONObject movieJSON;
 
         public ViewHolder(final View vhView) {
             super(vhView);
@@ -178,6 +169,13 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             moviePosterImageView = (ImageView) vhView.findViewById(R.id.movie_picture);
         }
 
+        public JSONObject getMovieJSON() {
+            return movieJSON;
+        }
+
+        public void setMovieJSON(JSONObject movieJSON) {
+            this.movieJSON = movieJSON;
+        }
 
         public void setTitleElements(String movieTitle) {
             movieTitleTextView.setText(movieTitle);
