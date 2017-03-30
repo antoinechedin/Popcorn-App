@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/logoPicture"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/logoPicture"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/logoPicture"
+            android:layout_marginLeft="-20dp"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="175dp"
+            android:text="Connexion"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/signUpButton"
@@ -10,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
         android:layout_marginEnd="@dimen/activity_button_margin"
         android:layout_marginLeft="@dimen/activity_button_margin"
         android:layout_marginRight="@dimen/activity_button_margin"
@@ -26,32 +58,24 @@
         android:ems="10"
         android:hint="@string/login" />
 
-    <TextView
-        android:id="@+id/forgottenPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/signUpSeparator"
-        android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:text="@string/password_forgotten" />
-
     <View
         android:id="@+id/signUpSeparator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/signUpButton"
+        android:layout_marginBottom="15dp"
         android:background="@android:color/darker_gray" />
 
     <Button
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/forgottenPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="@dimen/activity_button_margin"
-        android:layout_marginLeft="@dimen/activity_button_margin"
-        android:layout_marginRight="@dimen/activity_button_margin"
-        android:layout_marginStart="@dimen/activity_button_margin"
+        android:layout_above="@+id/signUpSeparator"
+        android:layout_alignEnd="@+id/signUpButton"
+        android:layout_alignLeft="@+id/signUpButton"
+        android:layout_alignRight="@+id/signUpButton"
+        android:layout_alignStart="@+id/signUpButton"
+        android:layout_marginBottom="35dp"
         android:background="@color/colorPrimary"
         android:text="@string/singIn"
         android:textColor="@android:color/white" />
@@ -62,20 +86,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/signInButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_button_margin"
+        android:layout_marginBottom="66dp"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword"
-        />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_above="@id/loginEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@color/colorAccent" />
+        android:inputType="textPassword" />
 
 </RelativeLayout>
