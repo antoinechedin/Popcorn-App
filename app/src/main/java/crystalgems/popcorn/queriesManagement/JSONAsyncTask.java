@@ -29,7 +29,6 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
     private OkHttpClient clientPopcorn;
     private OkHttpClient clientImdb;
     private static Response responsePopcorn;
-    private static Response responseImdb;
     private StringConsumer jsonBody;
     private String urlPopcornResponse;
     private String urlImdbResponse;
@@ -38,8 +37,8 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
     private ArrayList<String> urlResponsesArrayList;
 
     public JSONAsyncTask(StringConsumer stringConsumer) {
-        this.clientPopcorn = new OkHttpClient();
-        this.clientImdb = new OkHttpClient();
+        this.clientPopcorn = new OkHttpClient().newBuilder().readTimeout(60, TimeUnit.SECONDS).build();
+        this.clientImdb = new OkHttpClient().newBuilder().readTimeout(60, TimeUnit.SECONDS).build();;
         jsonBody = stringConsumer;
         movieTitlesArrayList = new ArrayList<>();
         urlResponsesArrayList = new ArrayList<>();
@@ -51,7 +50,6 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
             URL urlPopcorn = new URL(params[0]);
             String urilImdbString = "http://www.omdbapi.com/?s=";
             Request requestPopcorn = new Request.Builder()
-
                     .url(urlPopcorn).build();
             responsePopcorn = clientPopcorn.newCall(requestPopcorn).execute();
             urlPopcornResponse = responsePopcorn.body().string();
@@ -62,7 +60,7 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
             for (int i = 0; i < movieTitlesArrayList.size(); i++) {
                 URL posterUrl = new URL(urilImdbString + movieTitlesArrayList.get(i));
                 Request requestImdb = new Request.Builder().url(posterUrl).build();
-                responseImdb = clientImdb.newCall(requestImdb).execute();
+                Response responseImdb = clientImdb.newCall(requestImdb).execute();
                 urlImdbResponse = responseImdb.body().string();
                 urlResponsesArrayList.add(urlImdbResponse);
             }
