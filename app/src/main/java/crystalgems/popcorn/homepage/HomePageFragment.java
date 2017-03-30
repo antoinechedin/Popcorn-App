@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import crystalgems.popcorn.QueriesManagement.JSONAsyncTask;
+import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
 import crystalgems.popcorn.R;
 
 /**
@@ -23,7 +23,6 @@ public class HomePageFragment extends Fragment {
     private HomeRecyclerViewAdapter rvTextsAdapter;
 
     private JSONAsyncTask jsonTextAsyncTask;
-    private JSONAsyncTask jsonPosterAsyncTask;
 
 
     private int mPage;
@@ -51,6 +50,9 @@ public class HomePageFragment extends Fragment {
 
         // Improve performance if we know components will have fixed size, which is the case
         homeRecyclerView.setHasFixedSize(true);
+        homeRecyclerView.setItemViewCacheSize(20);
+        homeRecyclerView.setDrawingCacheEnabled(true);
+        //homeRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         homeLayoutManager = new StaggeredGridLayoutManager(2, 1);
         homeRecyclerView.setLayoutManager(homeLayoutManager);
