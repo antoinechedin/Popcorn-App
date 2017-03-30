@@ -37,6 +37,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     private String movieTitle;
     private String movieYear;
     private String posterUrl;
+    private int movieId;
     private ArrayList<JSONObject> jsonMovieArrayList = new ArrayList<>();
 
     public HomeRecyclerViewAdapter(String[] dataset) {
@@ -62,7 +63,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        System.out.println("onBindViewHolder");
         try {
             jsonChildArray = (JSONArray) jsonParentArray.get(0);
             jsonPopcornObject = (JSONObject) jsonChildArray.get(position);
@@ -73,6 +73,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             }
 
             if (jsonPopcornObject != null) {
+                //Movie id
+                movieId = jsonPopcornObject.getInt("id");
+
                 //Movie title
                 movieTitle = jsonPopcornObject.getString("titleImdb");
                 if (!movieTitle.equals(""))
@@ -91,6 +94,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             }
 
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", movieId);
             jsonObject.put("titleImdb", movieTitle);
             jsonObject.put("year", movieYear);
             jsonObject.put("Poster", posterUrl);
@@ -114,7 +118,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("ARRAYLIST:" + jsonMovieArrayList);
+
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 try {
                     intent.putExtra("title", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("titleImdb"));
