@@ -22,15 +22,14 @@ import okhttp3.Response;
 public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
 
     public interface StringConsumer {
-        void setJSONString(String jsonString) throws JSONException;
+        void setJSONString(ArrayList<String> jsonString) throws JSONException;
     }
 
     private OkHttpClient clientPopcorn;
     private OkHttpClient clientImdb;
     private static Response responsePopcorn;
     private static Response responseImdb;
-    private StringConsumer jsonBodyText;
-    private StringConsumer jsonBodyPoster;
+    private StringConsumer jsonBody;
     private String urlPopcornResponse;
     private String urlImdbResponse;
 
@@ -40,8 +39,7 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
     public JSONAsyncTask(StringConsumer stringConsumer) {
         this.clientPopcorn = new OkHttpClient();
         this.clientImdb = new OkHttpClient();
-        jsonBodyText = stringConsumer;
-        jsonBodyPoster = stringConsumer;
+        jsonBody = stringConsumer;
         movieTitlesArrayList = new ArrayList<>();
         urlResponsesArrayList = new ArrayList<>();
     }
@@ -89,8 +87,7 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
     protected void onPostExecute(ArrayList<String> resultsArrayList) {
         Log.e("JSONAsyncTask", "Finished");
         try {
-            jsonBodyText.setJSONString(resultsArrayList.get(0));
-            jsonBodyPoster.setJSONString(resultsArrayList.get(1));
+            jsonBody.setJSONString(resultsArrayList);
         } catch (JSONException e) {
             e.printStackTrace();
         }
