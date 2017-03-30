@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/titleImageView"
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@color/colorPrimary" />
+        android:layout_height="225dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/logoPicture"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/logoPicture"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/logoPicture"
+            android:layout_marginLeft="-20dp"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="175dp"
+            android:text="Inscription"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
 
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/titleImageView"
+        android:layout_below="@+id/relativeLayout2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Login"
         android:inputType="textEmailAddress" />
@@ -63,8 +87,9 @@
         android:layout_alignLeft="@+id/editBirthday"
         android:layout_alignStart="@+id/editBirthday"
         android:layout_below="@+id/editBirthday"
-        android:layout_marginLeft="4dp"
-        android:text="Gender"
+        android:layout_marginTop="11dp"
+        android:text=" Gender"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <Spinner
@@ -83,7 +108,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="@dimen/activity_button_margin"
+        android:layout_marginLeft="@dimen/activity_button_margin"
+        android:layout_marginRight="@dimen/activity_button_margin"
+        android:layout_marginStart="@dimen/activity_button_margin"
         android:background="@color/colorPrimary"
         android:text="Inscription"
         android:textColor="@android:color/white" />
