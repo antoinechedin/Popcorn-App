@@ -2,22 +2,19 @@ package crystalgems.popcorn.homepage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import crystalgems.popcorn.R;
@@ -36,6 +33,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     private JSONObject jsonImdbSearchObject;
     private JSONObject imdbResponse;
     private Context context;
+    private View view;
+    private String movieTitle;
+    private String movieYear;
+    private String posterUrl;
+    private int movieId;
+    private ArrayList<JSONObject> jsonMovieArrayList = new ArrayList<>();
 
     public HomeRecyclerViewAdapter(String[] dataset) {
         this.dataset = dataset;
@@ -51,29 +54,15 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         this.context = parent.getContext();
 
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_page_movie_card_view, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_page_movie_card_view, parent, false);
         // We always can set the view's size, margins, paddings and layout parameters here
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MovieDetailsActivity.class);
-                intent.putExtra("movieJSONString", ((ViewHolder) v.getParent()).getMovieJSON().toString());
-                try {
-                    intent.putExtra("posterURL", jsonImdbSearchObject.getString("Poster"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                context.startActivity(intent);
-            }
-        });
 
         return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         try {
             jsonChildArray = (JSONArray) jsonParentArray.get(0);
             jsonPopcornObject = (JSONObject) jsonChildArray.get(position);
@@ -82,30 +71,34 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                 jsonChildArray = (JSONArray) jsonParentArray.get(position + 1);
                 jsonImdbSearchObject = (JSONObject) jsonChildArray.get(0);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-
-        try {
             if (jsonPopcornObject != null) {
+                //Movie id
+                movieId = jsonPopcornObject.getInt("id");
+
                 //Movie title
-                String movieTitle = jsonPopcornObject.getString("titleImdb");
+                movieTitle = jsonPopcornObject.getString("titleImdb");
                 if (!movieTitle.equals(""))
                     holder.setTitleElements(movieTitle);
 
                 // Movie Year
-                String movieYear = jsonPopcornObject.getString("year");
+                movieYear = jsonPopcornObject.getString("year");
                 holder.setYearElements(movieYear);
 
                 // Movie Json
                 holder.setMovieJSON(jsonPopcornObject);
             }
-
             if (jsonImdbSearchObject != null) {
                 // Movie Poster
-                String posterUrl = jsonImdbSearchObject.getString("Poster");
+                posterUrl = jsonImdbSearchObject.getString("Poster");
             }
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", movieId);
+            jsonObject.put("titleImdb", movieTitle);
+            jsonObject.put("year", movieYear);
+            jsonObject.put("Poster", posterUrl);
+            jsonMovieArrayList.add(jsonObject);
         }
         catch (JSONException e) {
             e.printStackTrace();
@@ -121,6 +114,23 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                try {
+                    intent.putExtra("title", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("titleImdb"));
+                    intent.putExtra("year", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("year"));
+                    intent.putExtra("posterUrl", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("Poster"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //TODO add content/flags to intent
+                context.startActivity(intent);
+            }
+        });
     }
 
     // Return the size of the dataset (invoked by the layout manager)
@@ -141,14 +151,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void setJSONString(ArrayList<String> jsonStringArrayList) throws JSONException {
         if (jsonStringArrayList != null) {
             if (!jsonStringArrayList.isEmpty()) {
+
+
                 //If it is from popcorn json
                 jsonParentArray.put(new JSONArray(jsonStringArrayList.get(0)));
-                System.out.println("JSON ARRAY POPCORN:" + jsonParentArray);
 
                 //Else it is from Imdb json
                 for (int i = 1; i < jsonStringArrayList.size(); i++) {
                     JSONObject searchObject = new JSONObject(jsonStringArrayList.get(i));
-                    System.out.println("SEARCH OBJECT:" + searchObject);
                     JSONArray arraySearchObject = new JSONArray();
 
                     try {
@@ -158,7 +168,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                     }
 
                     jsonParentArray.put(arraySearchObject);
-                    System.out.println("JSON ARRAY IMDB:" + jsonParentArray);
                 }
 
                 notifyDataSetChanged();
@@ -201,7 +210,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
          * set Poster element to to picture at posterUrl
          */
         public void setPosterElements(String posterUrl) {
-            new DownloadImageTask(moviePosterImageView, view.getContext()).execute(posterUrl);
+            Picasso.with(view.getContext()).load(posterUrl).into(moviePosterImageView);
+
         }
 
         /**
@@ -209,34 +219,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
          */
         public void setPosterElements() {
             moviePosterImageView.setImageResource(R.color.cardview_dark_background);
-        }
-
-        private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-            ImageView bmImage;
-            private Context context;
-
-            public DownloadImageTask(ImageView bmImage, Context context) {
-                this.bmImage = bmImage;
-                this.context = context;
-            }
-
-            protected Bitmap doInBackground(String... urls) {
-                String urldisplay = urls[0];
-                Bitmap mIcon11 = null;
-                try {
-                    InputStream in = new java.net.URL(urldisplay).openStream();
-                    mIcon11 = BitmapFactory.decodeStream(in);
-                } catch (Exception e) {
-                    Log.e("Error", e.getMessage());
-                    e.printStackTrace();
-                    mIcon11 = BitmapFactory.decodeResource(context.getResources(), R.drawable.la_la_land);
-                }
-                return mIcon11;
-            }
-
-            protected void onPostExecute(Bitmap result) {
-                bmImage.setImageBitmap(result);
-            }
         }
     }
 }
