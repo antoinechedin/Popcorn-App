@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,7 +25,7 @@ public class SimpleJSONAsyncTask extends AsyncTask<String, Void, String> {
     private URL url;
 
     public SimpleJSONAsyncTask(AsyncTaskListener asyncTaskListener) {
-        this.client = new OkHttpClient();
+        this.client = new OkHttpClient().newBuilder().readTimeout(60, TimeUnit.SECONDS).build();
         listener = asyncTaskListener;
     }
 
