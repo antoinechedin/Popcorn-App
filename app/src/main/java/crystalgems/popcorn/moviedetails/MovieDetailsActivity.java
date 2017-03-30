@@ -8,7 +8,11 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import crystalgems.popcorn.R;
 import crystalgems.popcorn.seemore.SeeMoreRecommendationsActivity;
@@ -26,6 +30,10 @@ public class MovieDetailsActivity extends Activity {
     private RecyclerView movieDetailsGenresRecommendationsRecyclerView;
     private RecyclerView.Adapter rvAdapter;
 
+    private RatingBar ratingBar;
+
+    private TextView titleValue;
+    private TextView rateValue;
     private TextView releaseDateValue;
     private TextView directorValue;
     private TextView actorsValue;
@@ -36,6 +44,9 @@ public class MovieDetailsActivity extends Activity {
     private AppCompatButton directorsRecommendationsSeeMoreButton;
     private AppCompatButton genresRecommendationsSeeMoreButton;
 
+    private JSONObject jsonPopcornObject;
+    private String posterURL;
+
 
     private String[] customDataset = {"Premier", "Deuxième la la la la la la la la la la la la la la la la la la la la la la la la", "Troisième", "Quatrième la la la la la la la la la", "Cinquième", "Sixième", "Septième", "Huitième"};
 
@@ -45,7 +56,18 @@ public class MovieDetailsActivity extends Activity {
         setContentView(R.layout.movie_details);
         context = this;
 
-        releaseDateValue = (TextView) findViewById(R.id.releaseDateValue);
+        Intent intent = getIntent();
+        try {
+            jsonPopcornObject = new JSONObject(intent.getStringExtra("movieJSONString"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        posterURL = intent.getStringExtra("posterURL");
+
+        titleValue = (TextView) findViewById(R.id.movieTitle);
+        rateValue = (TextView) findViewById(R.id.rateTextView);
+        ratingBar = (RatingBar) findViewById(R.id.movieScoreRatingBar);
+        releaseDateValue = (TextView) findViewById(R.id.releaseDate);
         directorValue = (TextView) findViewById(R.id.directorValue);
         actorsValue = (TextView) findViewById(R.id.actorsValue);
         categoriesValue = (TextView) findViewById(R.id.categoriesValue);
@@ -54,6 +76,18 @@ public class MovieDetailsActivity extends Activity {
         actorsRecommendationsSeeMoreButton = (AppCompatButton) findViewById(R.id.actorsRecommendationsSeeMoreButton);
         directorsRecommendationsSeeMoreButton = (AppCompatButton) findViewById(R.id.directorsRecommendationsSeeMoreButton);
         genresRecommendationsSeeMoreButton = (AppCompatButton) findViewById(R.id.genresRecommendationsSeeMoreButton);
+
+        // init values
+        try {
+            titleValue.setText(jsonPopcornObject.getString("titleImdb"));
+            releaseDateValue.setText("Date : " + jsonPopcornObject.getString("year"));
+            double rating = Double.parseDouble(jsonPopcornObject.getString("totalScore")) / Double.parseDouble(jsonPopcornObject.getString("ratingNum"));
+            rating = round(rating, 1);
+            ratingBar.setRating((float) rating);
+            rateValue.setText(String.valueOf(rating));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         generalRecommendationsSeeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,4 +150,18 @@ public class MovieDetailsActivity extends Activity {
 
     }
 
+    /*private void runAsyncTasks() {
+        //runs AsyncTasks in parallel
+        jsonTextAsyncTask = new JSONAsyncTask(rvTextsAdapter);
+        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
+    }*/
+
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 }

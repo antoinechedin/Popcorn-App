@@ -1,4 +1,4 @@
-package crystalgems.popcorn.QueriesManagement;
+package crystalgems.popcorn.queriesManagement;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -49,7 +50,9 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
         try {
             URL urlPopcorn = new URL(params[0]);
             String urilImdbString = "http://www.omdbapi.com/?s=";
-            Request requestPopcorn = new Request.Builder().url(urlPopcorn).build();
+            Request requestPopcorn = new Request.Builder()
+
+                    .url(urlPopcorn).build();
             responsePopcorn = clientPopcorn.newCall(requestPopcorn).execute();
             urlPopcornResponse = responsePopcorn.body().string();
             urlResponsesArrayList.add(urlPopcornResponse);
@@ -93,3 +96,4 @@ public class JSONAsyncTask extends AsyncTask<String, Void, ArrayList<String>>{
         }
     }
 }
+
