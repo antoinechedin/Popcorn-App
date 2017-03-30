@@ -84,14 +84,14 @@
 
     <Button
         android:id="@+id/modifierButton"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/signUpSeparator"
         android:layout_alignEnd="@+id/returnButton"
         android:layout_alignLeft="@+id/returnButton"
         android:layout_alignRight="@+id/returnButton"
         android:layout_alignStart="@+id/returnButton"
-        android:layout_below="@+id/gender"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="35dp"
         android:background="@color/colorPrimary"
         android:text="Modifier"
         android:textColor="@android:color/white" />
