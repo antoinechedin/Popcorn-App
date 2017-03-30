@@ -4,7 +4,7 @@
     <string name="password_forgotten">Password forgotten?</string>
     <string name="singIn">Sign In</string>
     <string name="password">Password</string>
-    <string name="email">Email</string>
+    <string name="login">Login</string>
     <string name="recommendations">Recommandations</string>
     <string name="popular">Populaire</string>
     <string name="release_date">Date de sortie :</string>
