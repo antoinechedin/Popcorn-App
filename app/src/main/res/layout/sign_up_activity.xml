@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/logoPicture"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:adjustViewBounds="true"
@@ -23,6 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/logoPicture"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="false"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/logoPicture"
             android:layout_marginLeft="-20dp"
