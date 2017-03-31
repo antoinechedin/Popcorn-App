@@ -121,6 +121,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 try {
+                    intent.putExtra("id", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("id"));
                     intent.putExtra("title", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("titleImdb"));
                     intent.putExtra("year", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("year"));
                     intent.putExtra("posterUrl", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("Poster"));
@@ -211,14 +212,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
          */
         public void setPosterElements(String posterUrl) {
             Picasso.with(view.getContext()).load(posterUrl).into(moviePosterImageView);
-
-        }
-
-        /**
-         * set Poster element to default picture
-         */
-        public void setPosterElements() {
-            moviePosterImageView.setImageResource(R.color.cardview_dark_background);
         }
     }
 }
