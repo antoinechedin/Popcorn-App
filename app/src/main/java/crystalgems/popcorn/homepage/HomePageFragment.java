@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import crystalgems.popcorn.connexion.Connexion;
 import crystalgems.popcorn.queriesManagement.JSONAsyncTask;
 import crystalgems.popcorn.R;
 
@@ -65,7 +66,7 @@ public class HomePageFragment extends Fragment {
         rvTextsAdapter = new HomeRecyclerViewAdapter();
         homeRecyclerView.setAdapter(rvTextsAdapter);
 
-        runAsyncTasks();
+        runAsyncTasks(mPage);
 
 
         final ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.itemProgressBar);
@@ -78,9 +79,25 @@ public class HomePageFragment extends Fragment {
         return rootView;
     }
 
-    private void runAsyncTasks() {
+    private void runAsyncTasks(int mPage) {
         //runs AsyncTasks in parallel
         jsonTextAsyncTask = new JSONAsyncTask(rvTextsAdapter);
-        jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
+        switch (mPage) {
+            case 1:
+                jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
+                break;
+            case 2:
+                System.out.println("user id : " + Connexion.getInstance().getUserId());
+                jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/user-personal-recommendation-list/?userId="
+                        + Connexion.getInstance().getUserId()
+                        + "&length=30");
+                break;
+            case 3:
+                jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
+                break;
+            default:
+                jsonTextAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie-list");
+                break;
+        }
     }
 }
