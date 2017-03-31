@@ -23,6 +23,7 @@ import crystalgems.popcorn.queriesManagement.AsyncTaskListener;
 public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieDetailsRecyclerViewAdapter.ViewHolder> implements AsyncTaskListener {
     private Context context;
     private String jsonString = null;
+    private View view;
 
     public MovieDetailsRecyclerViewAdapter() {
     }
@@ -42,16 +43,8 @@ public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieD
         this.context = parent.getContext();
 
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_details_page_movie_card_view, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_details_page_movie_card_view, parent, false);
         // We always can set the view's size, margins, paddings and layout parameters here
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MovieDetailsActivity.class);
-                context.startActivity(intent);
-            }
-        });
 
         MovieDetailsRecyclerViewAdapter.ViewHolder viewHolder = new MovieDetailsRecyclerViewAdapter.ViewHolder(view);
 
@@ -60,7 +53,7 @@ public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieD
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MovieDetailsRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MovieDetailsRecyclerViewAdapter.ViewHolder holder, final int position) {
         // Movie picture
         ImageView moviePicture = (ImageView) holder.view.findViewById(R.id.movie_picture);
         moviePicture.setImageResource(R.drawable.la_la_land);
@@ -70,11 +63,31 @@ public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieD
         try {
             if (jsonString != null) {
                 JSONArray jsonArray = new JSONArray(jsonString);
-                movieTitle.setText(((JSONObject) ((JSONObject) jsonArray.get(position)).get("object")).getString("titleImdb"));
+                if (jsonArray.length() > 0 && !Double.isNaN(((JSONObject) jsonArray.get(0)).optDouble("rate")))
+                    movieTitle.setText(((JSONObject) ((JSONObject) jsonArray.get(position)).get("object")).getString("titleImdb"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                try {
+
+                    if (jsonString != null) {
+                        JSONObject jsonMovie = (JSONObject) ((JSONObject) new JSONArray(jsonString).get(position)).get("object");
+                        intent.putExtra("id", jsonMovie.getString("id"));
+                        intent.putExtra("title", jsonMovie.getString("titleImdb"));
+                        intent.putExtra("year", jsonMovie.getString("year"));
+                        context.startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
     }

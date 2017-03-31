@@ -51,11 +51,6 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
     private AppCompatButton directorsRecommendationsSeeMoreButton;
     private AppCompatButton genresRecommendationsSeeMoreButton;
 
-    private String posterURL;
-
-
-    private String[] customDataset = {"Premier", "Deuxième la la la la la la la la la la la la la la la la la la la la la la la la", "Troisième", "Quatrième la la la la la la la la la", "Cinquième", "Sixième", "Septième", "Huitième"};
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +58,6 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
         context = this;
 
         Intent intent = getIntent();
-       /* try {
-            jsonPopcornObject = new JSONObject(intent.getStringExtra("movieJSONString"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        posterURL = intent.getStringExtra("posterURL");*/
 
         titleValue = (TextView) findViewById(R.id.movieTitle);
         rateValue = (TextView) findViewById(R.id.rateTextView);
@@ -87,11 +76,7 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
         // Init values form intent
         titleValue.setText(intent.getStringExtra("title"));
         releaseDateValue.setText("Date : " + intent.getStringExtra("year"));
-        Picasso.with(context).load(intent.getStringExtra("posterUrl")).into(moviePicture);
-           /* double rating = Double.parseDouble(jsonPopcornObject.getString("totalScore")) / Double.parseDouble(jsonPopcornObject.getString("ratingNum"));
-            rating = round(rating, 1);
-            ratingBar.setRating((float) rating);
-            rateValue.setText(String.valueOf(rating));*/
+        //Picasso.with(context).load(intent.getStringExtra("posterUrl")).into(moviePicture);
 
         generalRecommendationsSeeMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,8 +161,7 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
         new SimpleJSONAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/genre?movieId=" + intent.getStringExtra("id"));
         new SimpleJSONAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/country?movieId=" + intent.getStringExtra("id"));
         new SimpleJSONAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/movie?id=" + intent.getStringExtra("id"));
-
-
+        new SimpleJSONAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://www.omdbapi.com/?s=" + intent.getStringExtra("title").replace(' ', '+'));
     }
 
     /*private void runAsyncTasks() {
@@ -198,10 +182,17 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
     @Override
     public void onPostAsyncTask(String jsonString) throws JSONException {
         if (jsonString != null && !"".equals(jsonString)) {
-            // It's a movie json
+            // It's an object json
             if (jsonString.charAt(0) != '[') {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                rateValue.setText(String.valueOf(round(jsonObject.getDouble("totalScore") / jsonObject.getDouble("ratingNum"), 1)));
+                // Movie
+                if (!Double.isNaN(jsonObject.optDouble("totalScore")))
+                    rateValue.setText(String.valueOf(round(jsonObject.getDouble("totalScore") / jsonObject.getDouble("ratingNum"), 1)));
+                    // Poster
+                else if (jsonObject.getBoolean("Response")) {
+                    String posterUrl = ((JSONObject) ((JSONArray) jsonObject.get("Search")).get(0)).getString("Poster");
+                    Picasso.with(context).load(posterUrl).into(moviePicture);
+                }
             } else {
                 JSONArray jsonArray = new JSONArray(jsonString);
                 if (jsonArray.length() > 0) {

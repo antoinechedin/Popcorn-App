@@ -124,7 +124,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                     intent.putExtra("id", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("id"));
                     intent.putExtra("title", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("titleImdb"));
                     intent.putExtra("year", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("year"));
-                    intent.putExtra("posterUrl", jsonMovieArrayList.get(holder.getAdapterPosition()).getString("Poster"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
