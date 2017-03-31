@@ -9,35 +9,36 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import crystalgems.popcorn.R;
+import crystalgems.popcorn.queriesManagement.AsyncTaskListener;
 
 /**
  * Created by Alex on 27/03/2017.
  */
 
-public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieDetailsRecyclerViewAdapter.ViewHolder> {
-    private String[] dataset;
+public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieDetailsRecyclerViewAdapter.ViewHolder> implements AsyncTaskListener {
     private Context context;
+    private String jsonString = null;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public View view;
-
-        public ViewHolder(final View vhView) {
-            super(vhView);
-            view = vhView;
-        }
-
-
+    public MovieDetailsRecyclerViewAdapter() {
     }
 
-    public MovieDetailsRecyclerViewAdapter(String[] dataset) {
-        this.dataset = dataset;
+    @Override
+    public void onPostAsyncTask(String jsonString) throws JSONException {
+        if (jsonString != null && !"".equals(jsonString)) {
+            this.jsonString = jsonString;
+            notifyDataSetChanged();
+        }
     }
 
     // Create new views (invoked by the layout manager)
     @Override
     public MovieDetailsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                 int viewType) {
+                                                                         int viewType) {
         this.context = parent.getContext();
 
         // create a new view
@@ -66,12 +67,37 @@ public class MovieDetailsRecyclerViewAdapter extends RecyclerView.Adapter<MovieD
 
         // Movie title
         TextView movieTitle = (TextView) holder.view.findViewById(R.id.movieTitle);
-        movieTitle.setText(dataset[position]);
+        try {
+            if (jsonString != null) {
+                JSONArray jsonArray = new JSONArray(jsonString);
+                movieTitle.setText(((JSONObject) ((JSONObject) jsonArray.get(position)).get("object")).getString("titleImdb"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     // Return the size of the dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return dataset.length;
+        if (jsonString != null)
+            try {
+                return new JSONArray(jsonString).length();
+            } catch (JSONException e) {
+                return 0;
+            }
+        else
+            return 0;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public View view;
+
+        public ViewHolder(final View vhView) {
+            super(vhView);
+            view = vhView;
+        }
     }
 }

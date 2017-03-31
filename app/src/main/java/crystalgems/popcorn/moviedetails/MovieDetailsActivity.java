@@ -35,7 +35,6 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
     private RecyclerView movieDetailsActorsRecommendationsRecyclerView;
     private RecyclerView movieDetailsDirectorsRecommendationsRecyclerView;
     private RecyclerView movieDetailsGenresRecommendationsRecyclerView;
-    private RecyclerView.Adapter rvAdapter;
 
     private RatingBar ratingBar;
 
@@ -146,12 +145,29 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
         movieDetailsDirectorsRecommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 0, false));
         movieDetailsGenresRecommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 0, false));
 
-        // specify an adapter to create views for items in the recycler view
-        rvAdapter = new MovieDetailsRecyclerViewAdapter(customDataset);
-        movieDetailsGeneralRecommendationsRecyclerView.setAdapter(rvAdapter);
-        movieDetailsActorsRecommendationsRecyclerView.setAdapter(rvAdapter); //TODO different adapter to match actors recommendations
-        movieDetailsDirectorsRecommendationsRecyclerView.setAdapter(rvAdapter); //TODO different adapter to match directors recommendations
-        movieDetailsGenresRecommendationsRecyclerView.setAdapter(rvAdapter); //TODO different adapter to match genres recommendations
+        // General similar movie
+        MovieDetailsRecyclerViewAdapter rvAdapter1 = new MovieDetailsRecyclerViewAdapter();
+        movieDetailsGeneralRecommendationsRecyclerView.setAdapter(rvAdapter1);
+        new SimpleJSONAsyncTask(rvAdapter1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/nearest-movie-list?movieId="
+                + intent.getStringExtra("id") + "&length=10");
+
+        // Actor similar movie
+        MovieDetailsRecyclerViewAdapter rvAdapter2 = new MovieDetailsRecyclerViewAdapter();
+        movieDetailsActorsRecommendationsRecyclerView.setAdapter(rvAdapter2);
+        new SimpleJSONAsyncTask(rvAdapter2).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/nearest-movie-list-by-actor?movieId="
+                + intent.getStringExtra("id") + "&length=10");
+
+        // Director similar movie
+        MovieDetailsRecyclerViewAdapter rvAdapter3 = new MovieDetailsRecyclerViewAdapter();
+        movieDetailsDirectorsRecommendationsRecyclerView.setAdapter(rvAdapter3);
+        new SimpleJSONAsyncTask(rvAdapter3).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/nearest-movie-list-by-director?movieId="
+                + intent.getStringExtra("id") + "&length=10");
+
+        // Genre similar movie
+        MovieDetailsRecyclerViewAdapter rvAdapter4 = new MovieDetailsRecyclerViewAdapter();
+        movieDetailsGenresRecommendationsRecyclerView.setAdapter(rvAdapter4);
+        new SimpleJSONAsyncTask(rvAdapter4).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://89.88.35.148:8080/popcorn/webapi/get/nearest-movie-list-by-genre?movieId="
+                + intent.getStringExtra("id") + "&length=10");
 
 
         // Send http requests for other information
@@ -209,6 +225,5 @@ public class MovieDetailsActivity extends Activity implements AsyncTaskListener 
                 }
             }
         }
-        System.out.println("received ! : " + jsonString);
     }
 }
